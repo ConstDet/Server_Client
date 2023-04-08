@@ -2,7 +2,6 @@ package ru.netology;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Client {
@@ -14,7 +13,7 @@ public class Client {
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
             System.out.println(String.format("Подключились на %d порту", clientSocket.getPort()));
-            String reception = in.readLine();//приняли город или ???
+            String reception = in.readLine();//приняли ??? или город
             System.out.println(reception);
             String city = scanner.nextLine();
             out.println(city);

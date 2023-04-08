@@ -24,7 +24,11 @@ public class Server {
                     } else {
                         out.println(city);//отправили город
                         String newCity = in.readLine();//ждем новый
-                        if (newCity.charAt(0) == city.charAt(city.length() - 1)) {
+                        if (newCity.equals("Stop")) {
+                            out.println("Сервер остановлен");
+                            return;
+                        }
+                        if (newCity.toLowerCase().charAt(0) == city.toLowerCase().charAt(city.length() - 1)) {
                             out.println("OK");
                             city = newCity;
                         } else {
