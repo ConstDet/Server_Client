@@ -10,14 +10,27 @@ import java.net.Socket;
 public class Server {
     public static void main(String[] args) {
         final int PORT = 8086;
+        String city = "";
         try (ServerSocket serverSocket = new ServerSocket(PORT)) { // открыли порт для приема сообщений
             while (true) {
                 try (Socket clientSocket = serverSocket.accept(); // ждем подключения
                      PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                      BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                     System.out.println("Принято новое соединение!");
-                    final String name = in.readLine();
-                    out.println(String.format("Привет %s, твой порт номер %d", name, clientSocket.getPort()));
+                    if (city.isEmpty()) {
+                        out.println("???");//отправили сообщение и...
+                        city = in.readLine();//ждем город
+                        out.println(String.format("Принято %s", city));
+                    } else {
+                        out.println(city);//отправили город
+                        String newCity = in.readLine();//ждем новый
+                        if (newCity.charAt(0) == city.charAt(city.length() - 1)) {
+                            out.println("OK");
+                            city = newCity;
+                        } else {
+                            out.println("NOT OK");
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
